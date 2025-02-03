@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Floating message container -->
+    <!-- Floating message above the text -->
     <div id="contract-message" class="message">You just signed a contract to be mine forever, good luck! ❤️</div>
 
     <div class="container">
@@ -25,15 +25,22 @@
     <script>
         function moveButton() {
             let button = document.querySelector('.no');
-            let x = Math.random() * (window.innerWidth - 100);
-            let y = Math.random() * (window.innerHeight - 50);
+            let x = Math.random() * (window.innerWidth - 150); // Avoid going off-screen
+            let y = Math.random() * (window.innerHeight - 100); // Prevent getting stuck at the bottom
+
             button.style.position = "absolute";
             button.style.left = x + "px";
             button.style.top = y + "px";
+
+            // 🔥 Fix for iPhone Safari: Force reflow to prevent button from sticking
+            button.style.transition = "none";
+            setTimeout(() => {
+                button.style.transition = "all 0.2s ease-in-out";
+            }, 10);
         }
 
         function showLove() {
-            showMessage(); // Start the repeated message animation
+            showMessage(); // Show the contract message
 
             for (let i = 0; i < 30; i++) {  // Generate floating hearts
                 createHeart();
